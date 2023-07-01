@@ -1,0 +1,81 @@
+what is a recommender system?
+This system recommends you about things [depending on data] 
+It is used by many companies like flipkart youtube  amazon and many more
+
+
+what are types of recommender system?
+1.content based: In this system recommends content based on the content consumed by user
+2.collabarative based: In this system recommedns based on data consumed by other users who have similar interests like you
+3.hybrid:1+2
+
+Project workfllow:
+data -> preprocessing ->model ->website -> deployment
+
+
+we have 2 datasets which makes work complex .
+So,we merged the both datasets and made a common dataset on the basis of title
+
+we also need to reduce the data by removing unuseful columns
+
+'budget' : not useful
+'genres' : useful
+'homepage':not useful
+'id' : useful for representing the movie at the time of deployment
+'keywords':useful to compare content of movie
+'original_language':unuseful
+'original_title':unuseful
+'overview':useful
+'popularity':unuseful
+'production_companies':unuseful
+'production_countries':unuseful
+'release_date':unuseful
+'revenue':unuseful
+'runtime':unuseful
+'spoken_languages':unuseful
+'status':unuseful
+'tagline':unuseful
+'title':useful
+'vote_average':unuseful
+'vote_count':unuseful
+'movie_id':unuseful
+'cast':useful
+'crew':useful
+
+Now we have a dataset with required content
+we will convert this data only into 3 columns id,title,tags
+
+this tags column will be made by merging all remaing columns
+for this we first need to pre process the column
+this includes 1. dealing with missing values
+2.making the columns into correct format to extract required data
+
+for overview column we just need to split the string
+
+now we need to remove spaces between two words,becuase
+take a example there are 2 directors 
+sam a and sam b so 
+here the tags will be [sam,a] and [sam,b]
+so our model will be confused between which sam you are talking about
+heance we remove space between words these will create tags as [sama] and [samb]
+which can be differentiated
+
+
+After all this preprocessing now comes the model part
+now we have tags
+to recommend a movie based on the user selected movie,we need to faind the similar tags
+for this we can count the number of words in each text and compare them
+but this is not the best method
+So here comes vectorization
+
+we convert every tag to a vector and whenever we need to recommend movies we will just recommend nearest movies
+vector is nothing but count of each word in the tag 
+[you know what I want to tell]
+there are different vectorization methods
+here we are using bag of words method but you can also search for different methods
+
+now after vectorization,we have to find similarity between them 
+here we will use cosine similarity 
+
+After this we need to make recommendation function
+In this we will recommend top 10 similar movie names
+so in this basically ,we will find index of asked movie then we will find similar movie indices and print there names
